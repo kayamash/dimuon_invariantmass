@@ -32,8 +32,8 @@ void muon_invariant_mass(){
   TFile *file = new TFile("hist.root");//file name
   TTree *tr = (TTree*)file->Get("tree");
   TCanvas *c1 = new TCanvas("c1","c1",1600,900);
-  TH1D* hist_g = new TH1D(title,title,1200,30.,150.);
-  TH1D* hist_m = new TH1D(title_m,title_m,150000,0.,150000.);
+  TH1D* hist_g = new TH1D(title,title,2400,30.,150.);
+  TH1D* hist_m = new TH1D(title_m,title_m,1500,0.,150000.);
   double im = 0;
   tree->SetBranchAddress("muon_invariant_mass",&im);
   int nEntry = tree->GetEntries();
