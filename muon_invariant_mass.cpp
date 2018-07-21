@@ -38,10 +38,11 @@ void muon_invariant_mass(){
   tree->SetBranchAddress("muon_invariant_mass",&im);
   int nEntry = tree->GetEntries();
   for(int iEntry = 0;iEntry < nEntry;++iEntry){
-  	tree->GetEntry(iEntry);
-  	if(im > 0){
-  		hist_g->Fill(im);
-  		hist_g->Fill(im*1000);
+   tree->GetEntry(iEntry);
+   if(im > 0){
+    hist_g->Fill(im);
+    hist_g->Fill(im*1000);
+   }
   }
   TFile *ofile = new TFile("fresult.root");//file name
   ofile.cd();
