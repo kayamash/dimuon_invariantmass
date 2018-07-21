@@ -41,7 +41,7 @@ void muon_invariant_mass(){
    tree->GetEntry(iEntry);
    if(im > 0){
     hist_g->Fill(im);
-    hist_g->Fill(im*1000);
+    hist_m->Fill(im*1000);
    }
   }
   TFile *ofile = new TFile("fresult.root","RECREATE");//file name
