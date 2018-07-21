@@ -16,6 +16,12 @@
 
 using namespace std;
 
+const double min_jp = 2900;
+const double max_jp = 3300;
+const double min_Y1S = 9000;
+const double max_Y1S = 9700;
+const double min_Y2S = 9800;
+const double max_Y2S = 10400;
 
 void muon_invariant_mass(){
   double min1 =30;//main minimum
@@ -79,25 +85,16 @@ void muon_invariant_mass(){
   hist_m->SetTitle("Zboson_invariant_mass");
   hist_m->Draw();
   gStyle->SetOptStat(1022);
-  TF1 * fb_m = new TF1("fb_m","[0]*TMath::Exp(-[1]*x)",0,150);
-  TF1 * fg_m = new TF1("fg_m","gaus",0,150);
-  fb_m->SetParameters(a,b);
-  fg_m->SetParameters(h,m,w); 
-  hist_m->Fit("fb_m","R","",min1*1000,max1*1000);
-  hist_m->Fit("fg_m","R","",min*1000,max*1000);
-  a=fb_m->GetParameter(0);
-  b=fb_m->GetParameter(1);
-  m=fg_m->GetParameter(0);
-  h=fg_m->GetParameter(1);
-  w=fg_m->GetParameter(2);
-  TF1 *fd_m=new TF1("fc_m","fb_m+fg_m",30000,150000);
-  fc_m->SetParameters(a,b,m,h,w);
-  fc_m->SetParNames("background_constants","background_slope","resonance_constants","resonance_mean","resonance_sigma");
-  hist_m->Fit("fc_m","R","",30000,150000);
+  TF1 * fjp_m = new TF1("fjp_m","gaus",0,150);
+  hist_m->Fit("fjp_m","R","",min_jp,max_jp);
+  TF1 * fy1s_m = new TF1("fy1s_m","gaus",0,150);
+  hist_m->Fit("fy1s_m","R","",min_Y1S,max_Y1S);
+  TF1 * fy2s_m = new TF1("fy2s_m","gaus",0,150);
+  hist_m->Fit("fy2s_m","R","",min_Y2S,max_Y2S);
   gStyle->SetOptFit(1111);
   c1->SaveAs("zboson_invariant_mass[MeV].png");
   hist_m.Write();
-  c1->Close();
+ 
 
 
   delete hist_g;
