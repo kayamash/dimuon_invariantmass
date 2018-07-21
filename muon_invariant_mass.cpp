@@ -16,13 +16,6 @@
 
 using namespace std;
 
-Double_t fitf(Double_t *x,Double_t *par){
-  Double_t arg=0;
-  if(par[4]!=0){arg=(x[0]-par[3])*(x[0]-par[3])/(2*par[4]*par[4]);
-  }
-  Double_t fitval= par[0]*TMath::Exp(-par[1]*x[0]) + par[2]*TMath::Exp(-arg);
-    return fitval;
-  }
 
 void muon_invariant_mass(){
   double min1 =30;//main minimum
@@ -35,42 +28,77 @@ void muon_invariant_mass(){
   double m = 0.032;//escape mean
   double w = 0.008;//escape width
   const char* title = "Zboson_invariant_mass";
+  const char* title_m = "Zboson_invariant_mass_MeV";
   TFile *file = new TFile("hist.root");//file name
   TTree *tr = (TTree*)file->Get("tree");
   TCanvas *c1 = new TCanvas("c1","c1",1600,900);
-  TH1D* hist = new TH1D(title,title,120,30.,150.);
+  TH1D* hist_g = new TH1D(title,title,1200,30.,150.);
+  TH1D* hist_m = new TH1D(title_m,title_m,150000,0.,150000.);
   double im = 0;
   tree->SetBranchAddress("muon_invariant_mass",&im);
   int nEntry = tree->GetEntries();
   for(int iEntry = 0;iEntry < nEntry;++iEntry){
   	tree->GetEntry(iEntry);
-  	if(im > 0)hist->Fill(im);
+  	if(im > 0){
+  		hist_g->Fill(im);
+  		hist_g->Fill(im*1000);
   }
-  hist->SetXTitle("Zboson_invariant_mass[GeV]");
-  hist->SetYTitle("Events");
-  hist->SetLabelSize(0.03,"y");
-  hist->SetTitle("Zboson_invariant_mass");
-  hist->Draw();
+  TFile *ofile = new TFile("fresult.root");//file name
+  ofile.cd();
+  //GeV Histgram
+  hist_g->SetXTitle("Zboson_invariant_mass[GeV]");
+  hist_g->SetYTitle("Events");
+  hist_g->SetLabelSize(0.03,"y");
+  hist_g->SetTitle("Zboson_invariant_mass");
+  hist_g->Draw();
   gStyle->SetOptStat(1022);
-  TF1 * f1 = new TF1("f1","[0]*TMath::Exp(-[1]*x)",0,150);
-  TF1 * f2 = new TF1("f2","gaus",0,150);
-  f1->SetParameters(a,b);
-  f2->SetParameters(h,m,w); 
-  hist->Fit("f1","R","",min1,max1);
-  hist->Fit("f2","R","",min,max);
-  a=f1->GetParameter(0);
-  b=f1->GetParameter(1);
-  m=f2->GetParameter(0);
-  h=f2->GetParameter(1);
-  w=f2->GetParameter(2);
-  TF1 *f3=new TF1("f3","f1+f2",30,150);
-  f3->SetParameters(a,b,m,h,w);
-  f3->SetParNames("background_constants","background_slope","resonance_constants","resonance_mean","resonance_sigma");
-  hist->Fit("f3","R","",30,150);
+  TF1 * fb_g = new TF1("fb_g","[0]*TMath::Exp(-[1]*x)",0,150);
+  TF1 * fg_g = new TF1("fg_g","gaus",0,150);
+  fb_g->SetParameters(a,b);
+  fg_g->SetParameters(h,m,w); 
+  hist_g->Fit("f1","R","",min1,max1);
+  hist_g->Fit("f2","R","",min,max);
+  a=fb_g->GetParameter(0);
+  b=fb_g->GetParameter(1);
+  m=fg_g->GetParameter(0);
+  h=fg_g->GetParameter(1);
+  w=fg_g->GetParameter(2);
+  TF1 *fc_g=new TF1("fc_g","fb_g+fg_g",30,150);
+  fc_g->SetParameters(a,b,m,h,w);
+  fc_g->SetParNames("background_constants","background_slope","resonance_constants","resonance_mean","resonance_sigma");
+  hist_g->Fit("fc_g","R","",30,150);
   gStyle->SetOptFit(1111);
-  c1->SaveAs("zboson_invariant_mass.png");
-  //c1->Close();
-  //delete c1;
-  //delete hist;
+  c1->SaveAs("zboson_invariant_mass[GeV].png");
+  hist_g.Write();
+  //MeV Histgram
+  hist_m->SetXTitle("Zboson_invariant_mass[MeV]");
+  hist_m->SetYTitle("Events");
+  hist_m->SetLabelSize(0.03,"y");
+  hist_m->SetTitle("Zboson_invariant_mass");
+  hist_m->Draw();
+  gStyle->SetOptStat(1022);
+  TF1 * fb_m = new TF1("fb_m","[0]*TMath::Exp(-[1]*x)",0,150);
+  TF1 * fg_m = new TF1("fg_m","gaus",0,150);
+  fb_m->SetParameters(a,b);
+  fg_m->SetParameters(h,m,w); 
+  hist_m->Fit("fb_m","R","",min1*1000,max1*1000);
+  hist_m->Fit("fg_m","R","",min*1000,max*1000);
+  a=fb_m->GetParameter(0);
+  b=fb_m->GetParameter(1);
+  m=fg_m->GetParameter(0);
+  h=fg_m->GetParameter(1);
+  w=fg_m->GetParameter(2);
+  TF1 *fd_m=new TF1("fc_m","fb_m+fg_m",30000,150000);
+  fc_m->SetParameters(a,b,m,h,w);
+  fc_m->SetParNames("background_constants","background_slope","resonance_constants","resonance_mean","resonance_sigma");
+  hist_m->Fit("fc_m","R","",30000,150000);
+  gStyle->SetOptFit(1111);
+  c1->SaveAs("zboson_invariant_mass[MeV].png");
+  hist_m.Write();
+  c1->Close();
+
+
+
+  delete hist_g;
 
 }
