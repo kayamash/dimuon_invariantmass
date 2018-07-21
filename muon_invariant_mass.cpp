@@ -57,8 +57,8 @@ void muon_invariant_mass(){
   TF1 * fg_g = new TF1("fg_g","gaus",0,150);
   fb_g->SetParameters(a,b);
   fg_g->SetParameters(h,m,w); 
-  hist_g->Fit("f1","R","",min1,max1);
-  hist_g->Fit("f2","R","",min,max);
+  hist_g->Fit("fb_g","R","",min1,max1);
+  hist_g->Fit("fg_g","R","",min,max);
   a=fb_g->GetParameter(0);
   b=fb_g->GetParameter(1);
   m=fg_g->GetParameter(0);
