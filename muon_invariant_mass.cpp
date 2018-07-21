@@ -86,17 +86,18 @@ void muon_invariant_mass(){
   hist_m->Draw();
   gStyle->SetOptStat(1022);
   TF1 * fjp_m = new TF1("fjp_m","gaus",0,150);
-  hist_m->Fit("fjp_m","R","",min_jp,max_jp);
+  hist_m->Fit("fjp_m","+","",min_jp,max_jp);
   TF1 * fy1s_m = new TF1("fy1s_m","gaus",0,150);
-  hist_m->Fit("fy1s_m","R","",min_Y1S,max_Y1S);
+  hist_m->Fit("fy1s_m","+","",min_Y1S,max_Y1S);
   TF1 * fy2s_m = new TF1("fy2s_m","gaus",0,150);
-  hist_m->Fit("fy2s_m","R","",min_Y2S,max_Y2S);
+  hist_m->Fit("fy2s_m","+","",min_Y2S,max_Y2S);
+  TF1 * fz_m = new TF1("fz_m","gaus",0,150);
+  hist_m->Fit("fz_m","+","",min*1000,max*1000);
   gStyle->SetOptFit(1111);
   c1->SaveAs("zboson_invariant_mass[MeV].png");
   hist_m.Write();
- 
-
-
+  c1->Close();
+  delete c1;
   delete hist_g;
 
 }
