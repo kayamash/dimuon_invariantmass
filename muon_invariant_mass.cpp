@@ -44,7 +44,7 @@ void muon_invariant_mass(){
     hist_g->Fill(im*1000);
    }
   }
-  TFile *ofile = new TFile("fresult.root");//file name
+  TFile *ofile = new TFile("fresult.root","RECREATE");//file name
   ofile.cd();
   //GeV Histgram
   hist_g->SetXTitle("Zboson_invariant_mass[GeV]");
