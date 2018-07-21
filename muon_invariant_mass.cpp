@@ -71,7 +71,7 @@ void muon_invariant_mass(){
   gStyle->SetOptFit(1111);
   c1->SaveAs("zboson_invariant_mass[GeV].png");
   hist_g.Write();
-  /*
+  
   //MeV Histgram
   hist_m->SetXTitle("Zboson_invariant_mass[MeV]");
   hist_m->SetYTitle("Events");
@@ -98,7 +98,7 @@ void muon_invariant_mass(){
   c1->SaveAs("zboson_invariant_mass[MeV].png");
   hist_m.Write();
   c1->Close();
-*/
+
 
   delete hist_g;
 
