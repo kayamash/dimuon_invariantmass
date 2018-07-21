@@ -1,5 +1,9 @@
 # dimuon_invariantmass
 
-  dimuon invariantmass calculation
+ input = dimuon invariantmass,
+
  draw hstgram
+
  fit background and each peaks
+
+ 
