@@ -33,6 +33,15 @@ void muon_invariant_mass(){
   double h = 1000;//escape height
   double m = 0.032;//escape mean
   double w = 0.008;//escape width
+  double mean_jp = 0;
+  double mean_Y1S = 0;
+  double mean_Y2S = 0;
+  double mean_z = 0;
+  double err_jp = 0;
+  double err_Y1S = 0;
+  double err_Y2S = 0;
+  double err_Z = 0;
+
   const char* title = "Zboson_invariant_mass";
   const char* title_m = "Zboson_invariant_mass_MeV";
   TFile *file = new TFile("hist.root");//file name
@@ -87,13 +96,32 @@ void muon_invariant_mass(){
   gStyle->SetOptStat(1022);
   TF1 * fjp_m = new TF1("fjp_m","gaus",0,150);
   hist_m->Fit("fjp_m","+","",min_jp,max_jp);
+  mean_jp = fjp_m->GetParameter(0);
+  err_jp = fjp_m->GetParameter(2);
   TF1 * fy1s_m = new TF1("fy1s_m","gaus",0,150);
   hist_m->Fit("fy1s_m","+","",min_Y1S,max_Y1S);
+  mean_Y1S = fy1s_m->GetParameter(0);
+  err_Y1S = fy1s_m->GetParameter(2);
   TF1 * fy2s_m = new TF1("fy2s_m","gaus",0,150);
   hist_m->Fit("fy2s_m","+","",min_Y2S,max_Y2S);
+  mean_Y2S = fy2s_m->GetParameter(0);
+  err_Y2S = fy2s_m->GetParameter(2);
   TF1 * fz_m = new TF1("fz_m","gaus",0,150);
   hist_m->Fit("fz_m","+","",min*1000,max*1000);
+  mean_Z = fz_m->GetParameter(0);
+  err_Z = fz_m->GetParameter(2);
   gStyle->SetOptFit(1111);
+  TLatex * latex = new TLatex();
+  latex->SetTexHeight(0.03);
+  latex->SetNDC(1);
+  string label_jp = "J/ψ = " + Form(%d,static_cast<int>(mean_jp)) + "±" + Form(%d,static_cast<int>(err_jp)) + "[MeV]";
+  string label_Y1S = "Y1S = " + Form(%d,static_cast<int>(mean_Y1S)) + "±" + Form(%d,static_cast<int>(err_Y1S)) + "[MeV]";
+  string label_Y2S = "Y2S = " + Form(%d,static_cast<int>(mean_Y2S)) + "±" + Form(%d,static_cast<int>(err_Y2S)) + "[MeV]";
+  string label_Z = "Z = " + Form(%d,static_cast<int>(mean_Z)) + "±" + Form(%d,static_cast<int>(err_Z)) + "[MeV]";
+  latex->DrawLatex(0.4,0.8,label_jp.c_str());
+  latex->DrawLatex(0.4,0.7,label_Y1S.c_str());
+  latex->DrawLatex(0.4,0.6,label_Y2S.c_str());
+  latex->DrawLatex(0.4,0.5,label_Z.c_str());
   c1->SaveAs("zboson_invariant_mass[MeV].png");
   hist_m.Write();
   c1->Close();
