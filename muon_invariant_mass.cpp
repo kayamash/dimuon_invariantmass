@@ -13,6 +13,7 @@
 #include <TF1.h>
 #include <TTree.h>
 #include <TStyle.h>
+#include <TText.h>
 
 using namespace std;
 
@@ -36,7 +37,7 @@ void muon_invariant_mass(){
   double mean_jp = 0;
   double mean_Y1S = 0;
   double mean_Y2S = 0;
-  double mean_z = 0;
+  double mean_Z = 0;
   double err_jp = 0;
   double err_Y1S = 0;
   double err_Y2S = 0;
@@ -111,17 +112,17 @@ void muon_invariant_mass(){
   mean_Z = fz_m->GetParameter(0);
   err_Z = fz_m->GetParameter(2);
   gStyle->SetOptFit(1111);
-  TLatex * latex = new TLatex();
-  latex->SetTexHeight(0.03);
-  latex->SetNDC(1);
+  TLatex  latex;
+  latex.SetTextSize(0.03);
+  latex.SetNDC(1);
   string label_jp = "J/ψ = " + Form(%d,static_cast<int>(mean_jp)) + "±" + Form(%d,static_cast<int>(err_jp)) + "[MeV]";
   string label_Y1S = "Y1S = " + Form(%d,static_cast<int>(mean_Y1S)) + "±" + Form(%d,static_cast<int>(err_Y1S)) + "[MeV]";
   string label_Y2S = "Y2S = " + Form(%d,static_cast<int>(mean_Y2S)) + "±" + Form(%d,static_cast<int>(err_Y2S)) + "[MeV]";
   string label_Z = "Z = " + Form(%d,static_cast<int>(mean_Z)) + "±" + Form(%d,static_cast<int>(err_Z)) + "[MeV]";
-  latex->DrawLatex(0.4,0.8,label_jp.c_str());
-  latex->DrawLatex(0.4,0.7,label_Y1S.c_str());
-  latex->DrawLatex(0.4,0.6,label_Y2S.c_str());
-  latex->DrawLatex(0.4,0.5,label_Z.c_str());
+  latex.DrawLatex(0.4,0.8,label_jp.c_str());
+  latex.DrawLatex(0.4,0.7,label_Y1S.c_str());
+  latex.DrawLatex(0.4,0.6,label_Y2S.c_str());
+  latex.DrawLatex(0.4,0.5,label_Z.c_str());
   c1->SaveAs("zboson_invariant_mass[MeV].png");
   hist_m.Write();
   c1->Close();
