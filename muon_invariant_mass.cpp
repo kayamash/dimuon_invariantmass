@@ -119,13 +119,12 @@ void muon_invariant_mass(){
   latex.SetNDC(1);
   string label_JP = Form("J/#psi = %d #pm ",static_cast<int>(mean_JP));  
   label_JP += Form("%d [MeV]",static_cast<int>(err_JP));
-  string label_Y1S = Form("Y1S = %d ± ",static_cast<int>(mean_Y1S));  
+  string label_Y1S = Form("Y1S = %d #pm ",static_cast<int>(mean_Y1S));  
   label_Y1S += Form("%d [MeV]",static_cast<int>(err_Y1S));
-  string label_Y2S = Form("Y2S = %d ± ",static_cast<int>(mean_Y2S));  
+  string label_Y2S = Form("Y2S = %d #pm ",static_cast<int>(mean_Y2S));  
   label_Y2S += Form("%d [MeV]",static_cast<int>(err_Y2S));
-  string label_Z = Form("Z = %d ± ",static_cast<int>(mean_Z));  
+  string label_Z = Form("Z = %d #pm ",static_cast<int>(mean_Z));  
   label_Z += Form("%d [MeV]",static_cast<int>(err_Z));
-  cout<< label_JP<<" "<<label_Y1S<<" "<<label_Y2S<<" "<<label_Z<<endl;  
   latex.DrawLatex(0.4,0.8,label_JP.c_str());
   latex.DrawLatex(0.4,0.7,label_Y1S.c_str());
   latex.DrawLatex(0.4,0.6,label_Y2S.c_str());
