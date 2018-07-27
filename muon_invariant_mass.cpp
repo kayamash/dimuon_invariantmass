@@ -115,10 +115,10 @@ void muon_invariant_mass(){
   TLatex  latex;
   latex.SetTextSize(0.03);
   latex.SetNDC(1);
-  string label_jp = "J/ψ = " + Form(%d,static_cast<int>(mean_jp)) + "±" + Form(%d,static_cast<int>(err_jp)) + "[MeV]";
-  string label_Y1S = "Y1S = " + Form(%d,static_cast<int>(mean_Y1S)) + "±" + Form(%d,static_cast<int>(err_Y1S)) + "[MeV]";
-  string label_Y2S = "Y2S = " + Form(%d,static_cast<int>(mean_Y2S)) + "±" + Form(%d,static_cast<int>(err_Y2S)) + "[MeV]";
-  string label_Z = "Z = " + Form(%d,static_cast<int>(mean_Z)) + "±" + Form(%d,static_cast<int>(err_Z)) + "[MeV]";
+  string label_jp = "J/ψ = " + Form("%d",static_cast<int>(mean_jp)) + "±" + Form("%d",static_cast<int>(err_jp)) + "[MeV]";
+  string label_Y1S = "Y1S = " + Form("%d",static_cast<int>(mean_Y1S)) + "±" + Form("%d",static_cast<int>(err_Y1S)) + "[MeV]";
+  string label_Y2S = "Y2S = " + Form("%d",static_cast<int>(mean_Y2S)) + "±" + Form("%d",static_cast<int>(err_Y2S)) + "[MeV]";
+  string label_Z = "Z = " + Form("%d",static_cast<int>(mean_Z)) + "±" + Form("%d",static_cast<int>(err_Z)) + "[MeV]";
   latex.DrawLatex(0.4,0.8,label_jp.c_str());
   latex.DrawLatex(0.4,0.7,label_Y1S.c_str());
   latex.DrawLatex(0.4,0.6,label_Y2S.c_str());
