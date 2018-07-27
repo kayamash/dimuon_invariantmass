@@ -34,11 +34,11 @@ void muon_invariant_mass(){
   double h = 1000;//escape height
   double m = 0.032;//escape mean
   double w = 0.008;//escape width
-  double mean_jp = 0;
+  double mean_JP = 0;
   double mean_Y1S = 0;
   double mean_Y2S = 0;
   double mean_Z = 0;
-  double err_jp = 0;
+  double err_JP = 0;
   double err_Y1S = 0;
   double err_Y2S = 0;
   double err_Z = 0;
@@ -97,8 +97,8 @@ void muon_invariant_mass(){
   gStyle->SetOptStat(1022);
   TF1 * fjp_m = new TF1("fjp_m","gaus",0,150);
   hist_m->Fit("fjp_m","+","",min_jp,max_jp);
-  mean_jp = fjp_m->GetParameter(0);
-  err_jp = fjp_m->GetParameter(2);
+  mean_JP = fjp_m->GetParameter(0);
+  err_JP = fjp_m->GetParameter(2);
   TF1 * fy1s_m = new TF1("fy1s_m","gaus",0,150);
   hist_m->Fit("fy1s_m","+","",min_Y1S,max_Y1S);
   mean_Y1S = fy1s_m->GetParameter(0);
@@ -115,11 +115,16 @@ void muon_invariant_mass(){
   TLatex  latex;
   latex.SetTextSize(0.03);
   latex.SetNDC(1);
-  string label_jp = "J/ψ = " + Form("%d",static_cast<int>(mean_jp)) + "±" + Form("%d",static_cast<int>(err_jp)) + "[MeV]";
-  string label_Y1S = "Y1S = " + Form("%d",static_cast<int>(mean_Y1S)) + "±" + Form("%d",static_cast<int>(err_Y1S)) + "[MeV]";
-  string label_Y2S = "Y2S = " + Form("%d",static_cast<int>(mean_Y2S)) + "±" + Form("%d",static_cast<int>(err_Y2S)) + "[MeV]";
-  string label_Z = "Z = " + Form("%d",static_cast<int>(mean_Z)) + "±" + Form("%d",static_cast<int>(err_Z)) + "[MeV]";
-  latex.DrawLatex(0.4,0.8,label_jp.c_str());
+  string label_JP = Form("J/ψ = %d ± ",static_cast<int>(mean_JP));  
+  label_JP += Form("%d [MeV]",static_cast<int>(err_JP));
+  string label_Y1S = Form("Y1S = %d ± ",static_cast<int>(mean_Y1S));  
+  label_Y1S += Form("%d [MeV]",static_cast<int>(err_Y1S));
+  string label_Y2S = Form("Y2S = %d ± ",static_cast<int>(mean_Y2S));  
+  label_Y2S += Form("%d [MeV]",static_cast<int>(err_Y2S));
+  string label_Z = Form("Z = %d ± ",static_cast<int>(mean_Z));  
+  label_Z += Form("%d [MeV]",static_cast<int>(err_Z));
+  cout<< label_JP<<" "<<label_Y1S<<" "<<label_Y2S<<" "<<label_Z<<endl;    
+  latex.DrawLatex(0.4,0.8,label_JP.c_str());
   latex.DrawLatex(0.4,0.7,label_Y1S.c_str());
   latex.DrawLatex(0.4,0.6,label_Y2S.c_str());
   latex.DrawLatex(0.4,0.5,label_Z.c_str());
