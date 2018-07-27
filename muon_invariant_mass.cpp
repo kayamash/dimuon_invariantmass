@@ -118,7 +118,7 @@ void muon_invariant_mass(){
   latex.SetTextSize(0.03);
   latex.SetNDC(1);
   //experiment data
-  string label_experiment = "Experimental value"；
+  //string label_experiment = "Experimental value"；
   string label_JP = Form("J/#psi = %d #pm ",static_cast<int>(mean_JP));  
   label_JP += Form("%d [MeV]",static_cast<int>(err_JP));
   string label_Y1S = Form("Y1S = %d #pm ",static_cast<int>(mean_Y1S));  
@@ -128,7 +128,7 @@ void muon_invariant_mass(){
   string label_Z = Form("Z = %d #pm ",static_cast<int>(mean_Z));  
   label_Z += Form("%d [MeV]",static_cast<int>(err_Z));
   //literature value
-  string label_value = "literature value"；
+  //string label_value = "literature value"；
   string label_v_JP = "J/#psi = 3096.916 #pm ";  
   label_v_JP += "0.011 [MeV]";
   string label_v_Y1S = "Y1S = 9460.30 #pm ";  
@@ -137,12 +137,12 @@ void muon_invariant_mass(){
   label_v_Y2S += "0.31 [MeV]";
   string label_v_Z = "Z = 91187.6 #pm ";  
   label_v_Z += "2.1 [MeV]";
-  latex.DrawLatex(0.4,0.9,label_experiment.c_str());
+  //latex.DrawLatex(0.4,0.9,label_experiment.c_str());
   latex.DrawLatex(0.4,0.8,label_JP.c_str());
   latex.DrawLatex(0.4,0.7,label_Y1S.c_str());
   latex.DrawLatex(0.4,0.6,label_Y2S.c_str());
   latex.DrawLatex(0.4,0.5,label_Z.c_str());
-  latex.DrawLatex(0.6,0.9,label_value.c_str());
+  //latex.DrawLatex(0.6,0.9,label_value.c_str());
   latex.DrawLatex(0.6,0.8,label_v_JP.c_str());
   latex.DrawLatex(0.6,0.7,label_v_Y1S.c_str());
   latex.DrawLatex(0.6,0.6,label_v_Y2S.c_str());
