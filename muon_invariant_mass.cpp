@@ -23,6 +23,8 @@ const double min_Y1S = 9000;
 const double max_Y1S = 9700;
 const double min_Y2S = 9800;
 const double max_Y2S = 10400;
+const double min_Z = 85000;
+const double max_Z = 100000;
 
 void muon_invariant_mass(){
   double min1 =30;//main minimum
@@ -108,7 +110,7 @@ void muon_invariant_mass(){
   mean_Y2S = fy2s_m->GetParameter(0);
   err_Y2S = fy2s_m->GetParameter(2);
   TF1 * fz_m = new TF1("fz_m","gaus",0,150);
-  hist_m->Fit("fz_m","+","",min*1000,max*1000);
+  hist_m->Fit("fz_m","+","",min_Z,max_Z);
   mean_Z = fz_m->GetParameter(0);
   err_Z = fz_m->GetParameter(2);
   gStyle->SetOptFit(1111);
@@ -123,7 +125,9 @@ void muon_invariant_mass(){
   label_Y2S += Form("%d [MeV]",static_cast<int>(err_Y2S));
   string label_Z = Form("Z = %d ± ",static_cast<int>(mean_Z));  
   label_Z += Form("%d [MeV]",static_cast<int>(err_Z));
-  cout<< label_JP<<" "<<label_Y1S<<" "<<label_Y2S<<" "<<label_Z<<endl;    
+  cout<< label_JP<<" "<<label_Y1S<<" "<<label_Y2S<<" "<<label_Z<<endl;  
+  cout<< mean_JP<<"   "<<mean_Y1S <<"   "<<mean_Y2S<<"   "<<mean__Z<<endl;   
+  cout<< err_JP<<"   "<<err_Y1S <<"   "<<err_Y2S<<"   "<<err_Z<<endl;  
   latex.DrawLatex(0.4,0.8,label_JP.c_str());
   latex.DrawLatex(0.4,0.7,label_Y1S.c_str());
   latex.DrawLatex(0.4,0.6,label_Y2S.c_str());
