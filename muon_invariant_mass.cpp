@@ -95,6 +95,7 @@ void muon_invariant_mass(){
   hist_m->SetYTitle("Events");
   hist_m->SetLabelSize(0.03,"y");
   hist_m->SetTitle("Zboson_invariant_mass");
+  hist_m->SetStats(0);
   hist_m->Draw();
   gStyle->SetOptStat(0);
   TF1 * fjp_m = new TF1("fjp_m","gaus",0,150);
@@ -113,7 +114,6 @@ void muon_invariant_mass(){
   hist_m->Fit("fz_m","+","",min_Z,max_Z);
   mean_Z = fz_m->GetParameter(1);
   err_Z = fz_m->GetParameter(2);
-  gStyle->SetOptFit(1111);
   TLatex  latex;
   latex.SetTextSize(0.03);
   latex.SetNDC(1);
