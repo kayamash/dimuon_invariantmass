@@ -36,6 +36,7 @@ void muon_invariant_mass(){
   double err_Y2S = 0;
   double err_Z = 0;
 
+
   const char* title = "Zboson_invariant_mass_MeV";
   TFile *file = new TFile("hist.root");//file name
   TTree *tree = (TTree*)file->Get("tree");
@@ -51,7 +52,8 @@ void muon_invariant_mass(){
   }
   TFile *ofile = new TFile("fresult.root","RECREATE");//file name
   ofile->cd();
-  
+*
+ 
   RooRealVar x("x", "x", 0, 150000);
   RooRealVar mean("mean", "Mean of Gaussian", 90638, -100, 100);
   RooRealVar sigma("sigma", "Width of Gaussian", 3100, -100, 100);
