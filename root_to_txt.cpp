@@ -7,8 +7,8 @@
   std::ofstream File("Data.txt");
   for(Int_t i = 0;i < eventnumber;i++){
    tree->GetEntry(i);
-   if(mass > 60 && mass < 120){
+  // if(mass > 60 && mass < 120){
     File<<mass<<"\n";
-   }
+  // }
   }
  }
