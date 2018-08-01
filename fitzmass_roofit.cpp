@@ -44,9 +44,12 @@ void fitzmass_roofit(){
   plot->SetTitleOffset(1.5,"X");
   plot->SetTitleOffset(1.7,"Y");
   plot->Draw();
-  
+  Double_t gauss_pdfM = model_sig.getVal(mass);
+  std::cout<<gauss_pdfM<<std::endl;
+
   TFile *file = new TFile("fresult.root","RECREATE");
   file->cd();
   c1->Write();
+  delete c1;
 
 }
