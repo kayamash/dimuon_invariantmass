@@ -42,7 +42,7 @@ void fitzmass_roofit(){
   plot->SetTitleSize(0.03,"X");
   plot->SetTitleSize(0.03,"Y");
   plot->SetTitleOffset(1.5,"X");
-  plot->SetTitleOffset(1.8,"Y");
+  plot->SetTitleOffset(1.7,"Y");
   plot->Draw();
   
   TFile *file = new TFile("fresult.root","RECREATE");
