@@ -43,7 +43,7 @@ void fitzmass_roofit(){
 
   // signal model of some1
   w.factory("nsigsome1[5000, 0., 100000.0]");// the number of signal
-  w.factory("masssome1[18, 12, 24]");// mean?
+  w.factory("masssome1[15, 12, 18]");// mean?
   w.factory("widthsome1[1, 0.5,10]");//sigma?
   w.factory("Gaussian::model_sigsome1(x, masssome1, widthsome1)");
  
@@ -51,13 +51,21 @@ void fitzmass_roofit(){
 
   // signal model of some2
   w.factory("nsigsome2[5000, 0., 100000.0]");// the number of signal
-  w.factory("masssome2[35, 30, 40]");// mean?
+  w.factory("masssome2[20, 18, 24]");// mean?
   w.factory("widthsome2[1, 0.5,10]");//sigma?
   w.factory("Gaussian::model_sigsome2(x, masssome2, widthsome2)");
  
   RooAbsPdf * model_sig_some2 = w.pdf("model_sigsome2");
 
-  w.factory("SUM::model(nbkg*model_bkg, nsigz*model_sigz, nsigjp*model_sigjp,nsigy*model_sigy, nsigsome1*model_sigsome1, nsigsome2*model_sigsome2)");
+  // signal model of some3
+  w.factory("nsigsome3[5000, 0., 100000.0]");// the number of signal
+  w.factory("masssome3[35, 30, 40]");// mean?
+  w.factory("widthsome3[1, 0.5,10]");//sigma?
+  w.factory("Gaussian::model_sigsome3(x, masssome3, widthsome3)");
+ 
+  RooAbsPdf * model_sig_some3 = w.pdf("model_sigsome3");
+
+  w.factory("SUM::model(nbkg*model_bkg, nsigz*model_sigz, nsigjp*model_sigjp,nsigy*model_sigy, nsigsome1*model_sigsome1, nsigsome2*model_sigsome2, nsigsome3*model_sigsome3)");
   RooAbsPdf * model = w.pdf("model");//the pdf model of signal and background
  
   // create RooDataSet
