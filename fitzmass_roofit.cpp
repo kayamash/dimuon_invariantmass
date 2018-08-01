@@ -4,7 +4,7 @@ void fitzmass_roofit(){
   TTree *tree = new TTree("tree","tree");
   int nevt = tree->ReadFile("Data.txt","x");
   RooWorkspace w("w");
-  w.factory("x[60000,120000]");  // invariant mass draw range
+  w.factory("x[60,120]");  // invariant mass draw range
   w.factory("nbkg[30000, 0, 50000]"); // the number of background
   w.var("nbkg")->setVal(nevt);
   w.var("nbkg")->setMin(0.1*nevt);
@@ -13,13 +13,13 @@ void fitzmass_roofit(){
   //create exponential model as two components
   w.factory("a1[ 7.5, -500, 500]");
   w.factory("a2[-1.5, -500, 500]");
-  w.factory("expr::z('-(a1*x + a2*x^2)', a1, a2, x)");
+  w.factory("expr::z('-(a1*x/100 + a2*(x/100)^2)', a1, a2, x)");
   w.factory("Exponential::model_bkg(z, 1)");
  
   // signal model  
   w.factory("nsig[5000, 0., 10000.0]");// the number of signal
-  w.factory("mass[90000, 60000, 120000]");// mean?
-  w.factory("width[1, 0.5,10000]");//sigma?
+  w.factory("mass[90, 60, 120]");// mean?
+  w.factory("width[1, 0.5,10]");//sigma?
   w.factory("Gaussian::model_sig(x, mass, width)");
  
   RooAbsPdf * model_sig = w.pdf("model_sig");
