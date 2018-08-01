@@ -41,15 +41,23 @@ void fitzmass_roofit(){
  
   RooAbsPdf * model_sig_y1s = w.pdf("model_sigy1s");
 
-  // signal model of some
-  w.factory("nsigsome[5000, 0., 100000.0]");// the number of signal
-  w.factory("masssome[35, 30, 40]");// mean?
-  w.factory("widthsome[1, 0.5,10]");//sigma?
-  w.factory("Gaussian::model_sigsome(x, masssome, widthsome)");
+  // signal model of some1
+  w.factory("nsigsome1[5000, 0., 100000.0]");// the number of signal
+  w.factory("masssome1[20, 15, 25]");// mean?
+  w.factory("widthsome1[1, 0.5,10]");//sigma?
+  w.factory("Gaussian::model_sigsome1(x, masssome1, widthsome1)");
  
-  RooAbsPdf * model_sig_some = w.pdf("model_sigsome");
+  RooAbsPdf * model_sig_some1 = w.pdf("model_sigsome1");
 
-  w.factory("SUM::model(nbkg*model_bkg, nsigz*model_sigz, nsigjp*model_sigjp,nsigy*model_sigy, nsigsome*model_sigsome)");
+  // signal model of some2
+  w.factory("nsigsome2[5000, 0., 100000.0]");// the number of signal
+  w.factory("masssome2[35, 30, 40]");// mean?
+  w.factory("widthsome2[1, 0.5,10]");//sigma?
+  w.factory("Gaussian::model_sigsome2(x, masssome2, widthsome2)");
+ 
+  RooAbsPdf * model_sig_some2 = w.pdf("model_sigsome2");
+
+  w.factory("SUM::model(nbkg*model_bkg, nsigz*model_sigz, nsigjp*model_sigjp,nsigy*model_sigy, nsigsome1*model_sigsome1, nsigsome2*model_sigsome2)");
   RooAbsPdf * model = w.pdf("model");//the pdf model of signal and background
  
   // create RooDataSet
@@ -64,7 +72,8 @@ void fitzmass_roofit(){
   model->plotOn(plot, Components("model_sigz"),LineColor(kRed));
   model->plotOn(plot, Components("model_sigjp"),LineColor(kRed));
   model->plotOn(plot, Components("model_sigy"),LineColor(kRed));
-  model->plotOn(plot, Components("model_sigsome"),LineColor(kRed));
+  model->plotOn(plot, Components("model_sigsome1"),LineColor(kRed));
+  model->plotOn(plot, Components("model_sigsome2"),LineColor(kRed));
   plot->SetXTitle("dimuon_invariant_mass[GeV]");
   plot->SetTitle("dimuon_invariant_mass");
   plot->SetTitleSize(0.03,"X");
