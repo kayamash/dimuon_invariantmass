@@ -43,7 +43,7 @@ void fitzmass_roofit(){
 
   // signal model of some1
   w.factory("nsigsome1[5000, 0., 100000.0]");// the number of signal
-  w.factory("masssome1[18, 13, 24]");// mean?
+  w.factory("masssome1[18, 12, 24]");// mean?
   w.factory("widthsome1[1, 0.5,10]");//sigma?
   w.factory("Gaussian::model_sigsome1(x, masssome1, widthsome1)");
  
@@ -72,7 +72,7 @@ void fitzmass_roofit(){
   model->plotOn(plot, Components("model_sigz"),LineColor(kRed));
   model->plotOn(plot, Components("model_sigjp"),LineColor(kGray));
   model->plotOn(plot, Components("model_sigy"),LineColor(kGreen));
-  model->plotOn(plot, Components("model_sigsome1"),LineColor(kBlue));
+  model->plotOn(plot, Components("model_sigsome1"),LineColor(kOrange));
   model->plotOn(plot, Components("model_sigsome2"),LineColor(kYellow));
   plot->SetXTitle("dimuon_invariant_mass[GeV]");
   plot->SetTitle("dimuon_invariant_mass");
