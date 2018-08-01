@@ -16,6 +16,8 @@ void fitzmass_roofit(){
   w.factory("a2[-1.5, -500, 500]");
   w.factory("expr::z('-(a1*x/100 + a2*(x/100)^2)', a1, a2, x)");
   w.factory("Exponential::model_bkg(z, 1)");
+
+
  
   // signal model  
   w.factory("nsig[5000, 0., 10000.0]");// the number of signal
@@ -39,12 +41,12 @@ void fitzmass_roofit(){
   model->plotOn(plot, Components("model_bkg"),LineStyle(kDashed));
   model->plotOn(plot, Components("model_sig"),LineColor(kRed));
   plot->SetXTitle("dimuon_invariant_mass[GeV]");
+  plot->SetTitle("dimuon_invariant_mass");
   plot->SetTitleSize(0.03,"X");
   plot->SetTitleSize(0.03,"Y");
   plot->SetTitleOffset(1.5,"X");
   plot->SetTitleOffset(1.7,"Y");
   plot->Draw();
-  mean.Print();
 
   TFile *file = new TFile("fresult.root","RECREATE");
   file->cd();
