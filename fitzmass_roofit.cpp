@@ -11,8 +11,8 @@ void fitzmass_roofit(){
   w.var("nbkg")->setMax(10*nevt);
   
   //create exponential model as two components
-  w.factory("a1[ 7.5, -5000, 5000]");
-  w.factory("a2[-1.5, -5000, 5000]");
+  w.factory("a1[ 7.5, -500, 500]");
+  w.factory("a2[-1.5, -500, 500]");
   w.factory("expr::z('-(a1*x + a2*x^2)', a1, a2, x)");
   w.factory("Exponential::model_bkg(z, 1)");
  
