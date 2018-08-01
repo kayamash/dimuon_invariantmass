@@ -33,23 +33,13 @@ void fitzmass_roofit(){
  
   RooAbsPdf * model_sig_jp = w.pdf("model_sigjp");
 
-  // signal model of Y1S 
-  w.factory("nsigy1s[5000, 0., 100000.0]");// the number of signal
-  w.factory("massy1s[9, 8, 9.5]");// mean?
-  w.factory("widthy1s[1, 0.5,10]");//sigma?
-  w.factory("Gaussian::model_sigy1s(x, massy1s, widthy1s)");
+  // signal model of Y
+  w.factory("nsigy[5000, 0., 100000.0]");// the number of signal
+  w.factory("massy[9, 8, 10]");// mean?
+  w.factory("widthy[1, 0.5,10]");//sigma?
+  w.factory("Gaussian::model_sigy(x, massy, widthy)");
  
   RooAbsPdf * model_sig_y1s = w.pdf("model_sigy1s");
-
-/*
-  // signal model of Y2S
-  w.factory("nsigy2s[5000, 0., 100000.0]");// the number of signal
-  w.factory("massy2s[10, 9.5, 12]");// mean?
-  w.factory("widthy2s[1, 0.5,10]");//sigma?
-  w.factory("Gaussian::model_sigy2s(x, massy2s, widthy2s)");
- 
-  RooAbsPdf * model_sig_y2s = w.pdf("model_sigy2s");
- */
 
   // signal model of some
   w.factory("nsigsome[5000, 0., 100000.0]");// the number of signal
@@ -59,7 +49,7 @@ void fitzmass_roofit(){
  
   RooAbsPdf * model_sig_some = w.pdf("model_sigsome");
 
-  w.factory("SUM::model(nbkg*model_bkg, nsigz*model_sigz, nsigjp*model_sigjp,nsigy1s*model_sigy1s, nsigsome*model_sigsome)");
+  w.factory("SUM::model(nbkg*model_bkg, nsigz*model_sigz, nsigjp*model_sigjp,nsigy*model_sigy, nsigsome*model_sigsome)");
   RooAbsPdf * model = w.pdf("model");//the pdf model of signal and background
  
   // create RooDataSet
@@ -73,8 +63,7 @@ void fitzmass_roofit(){
   model->plotOn(plot, Components("model_bkg"),LineStyle(kDashed));
   model->plotOn(plot, Components("model_sigz"),LineColor(kRed));
   model->plotOn(plot, Components("model_sigjp"),LineColor(kRed));
-  model->plotOn(plot, Components("model_sigy1s"),LineColor(kRed));
-  //model->plotOn(plot, Components("model_sigy2s"),LineColor(kRed));
+  model->plotOn(plot, Components("model_sigy"),LineColor(kRed));
   model->plotOn(plot, Components("model_sigsome"),LineColor(kRed));
   plot->SetXTitle("dimuon_invariant_mass[GeV]");
   plot->SetTitle("dimuon_invariant_mass");
