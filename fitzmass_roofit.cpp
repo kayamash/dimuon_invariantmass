@@ -41,7 +41,7 @@ void fitzmass_roofit(){
   model->plotOn(plot, Components("model_sig"),LineColor(kRed));
   plot->Draw();
   
-  TFile *file = new TFile("fresult.root");
+  TFile *file = new TFile("fresult.root","RECREATE");
   file->cd();
   c1->Write();
 
