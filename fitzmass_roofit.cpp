@@ -41,8 +41,8 @@ void fitzmass_roofit(){
   plot->SetXTitle("dimuon_invariant_mass[GeV]");
   plot->SetTitleSize(0.03,"X");
   plot->SetTitleSize(0.03,"Y");
-  plot->SetTitleOffset(1,"X");
-  plot->SetTitleOffset(1,"Y");
+  plot->SetTitleOffset(2,"X");
+  plot->SetTitleOffset(3,"Y");
   plot->Draw();
   
   TFile *file = new TFile("fresult.root","RECREATE");
