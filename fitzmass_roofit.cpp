@@ -1,7 +1,7 @@
 using namespace RooFit;
  
 void fitzmass_roofit(){
-  TCanvas *c1 = new TCanvas("dimuon_invariant_mass[GeV]","dimuon_invariant_mass[GeV]",1600,900);
+  TCanvas *c1 = new TCanvas("dimuon_invariant_mass[GeV]","dimuon_invariant_mass[GeV]",1600*1.1,900*1.1);
   TTree *tree = new TTree("tree","tree");
   int nevt = tree->ReadFile("Data.txt","x");
   RooWorkspace w("w");
@@ -30,7 +30,6 @@ void fitzmass_roofit(){
  
   // create RooDataSet
   RooDataSet data("data","data", tree, *w.var("x"));
- 
   RooFitResult *r = model->fitTo(data);
  
   // plot data and function
@@ -39,6 +38,7 @@ void fitzmass_roofit(){
   model->plotOn(plot);
   model->plotOn(plot, Components("model_bkg"),LineStyle(kDashed));
   model->plotOn(plot, Components("model_sig"),LineColor(kRed));
+  plot->SetXTitle("dimuon_invariant_mass[GeV]");
   plot->Draw();
   
   TFile *file = new TFile("fresult.root","RECREATE");
