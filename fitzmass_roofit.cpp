@@ -1,7 +1,7 @@
 using namespace RooFit;
  
 void fitzmass_roofit(){
-  TCanvas *c1 = new TCanvas("c1","c1",1600,900);
+  TCanvas *c1 = new TCanvas("dimuon_invariant_mass[GeV]","dimuon_invariant_mass[GeV]",1600,900);
   TTree *tree = new TTree("tree","tree");
   int nevt = tree->ReadFile("Data.txt","x");
   RooWorkspace w("w");
