@@ -5,7 +5,7 @@ void fitzmass_roofit(){
   TTree *tree = new TTree("tree","tree");
   int nevt = tree->ReadFile("Data.txt","x");
   RooWorkspace w("w");
-  w.factory("x[60,120]");  // invariant mass draw range
+  w.factory("x[0,120]");  // invariant mass draw range
   w.factory("nbkg[30000, 0, 50000]"); // the number of background
   w.var("nbkg")->setVal(nevt);
   w.var("nbkg")->setMin(0.1*nevt);
@@ -17,17 +17,39 @@ void fitzmass_roofit(){
   w.factory("expr::z('-(a1*x/100 + a2*(x/100)^2)', a1, a2, x)");
   w.factory("Exponential::model_bkg(z, 1)");
 
-
- 
-  // signal model  
+  // signal model of z 
   w.factory("nsigz[5000, 0., 10000.0]");// the number of signal
-  w.factory("massz[90, 60, 120]");// mean?
+  w.factory("massz[90, 70, 100]");// mean?
   w.factory("widthz[1, 0.5,10]");//sigma?
   w.factory("Gaussian::model_sigz(x, massz, widthz)");
  
-  RooAbsPdf * model_sig = w.pdf("model_sigz");
+  RooAbsPdf * model_sig_z = w.pdf("model_sigz");
+
+  // signal model of jp 
+  w.factory("nsigjp[5000, 0., 10000.0]");// the number of signal
+  w.factory("massjp[3, 1, 5]");// mean?
+  w.factory("widthjp[1, 0.5,10]");//sigma?
+  w.factory("Gaussian::model_sigjp(x, massjp, widthjp)");
  
-  w.factory("SUM::model(nbkg*model_bkg, nsigz*model_sigz)");
+  RooAbsPdf * model_sig_jp = w.pdf("model_sigjp");
+
+  // signal model of Y1S 
+  w.factory("nsigy1s[5000, 0., 10000.0]");// the number of signal
+  w.factory("massy1s[9, 8, 9.5]");// mean?
+  w.factory("widthy1s[1, 0.5,10]");//sigma?
+  w.factory("Gaussian::model_sigy1s(x, massy1s, widthy1s)");
+ 
+  RooAbsPdf * model_sig_y1s = w.pdf("model_sigy1s");
+
+  // signal model of Y2S
+  w.factory("nsigy2s[5000, 0., 10000.0]");// the number of signal
+  w.factory("massy2s[10, 9.5, 12]");// mean?
+  w.factory("widthy2s[1, 0.5,10]");//sigma?
+  w.factory("Gaussian::model_sigy2s(x, massy2s, widthy2s)");
+ 
+  RooAbsPdf * model_sig_y2s = w.pdf("model_sigy2s");
+ 
+  w.factory("SUM::model(nbkg*model_bkg, nsigz*model_sigz, nsigjp*model_sigjp,nsigy1s*model_sigy1s,nsigy2s*model_sigy2s)");
   RooAbsPdf * model = w.pdf("model");//the pdf model of signal and background
  
   // create RooDataSet
@@ -40,6 +62,9 @@ void fitzmass_roofit(){
   model->plotOn(plot);
   model->plotOn(plot, Components("model_bkg"),LineStyle(kDashed));
   model->plotOn(plot, Components("model_sigz"),LineColor(kRed));
+  model->plotOn(plot, Components("model_sigjp"),LineColor(kRed));
+  model->plotOn(plot, Components("model_sigy1s"),LineColor(kRed));
+  model->plotOn(plot, Components("model_sigy2s"),LineColor(kRed));
   plot->SetXTitle("dimuon_invariant_mass[GeV]");
   plot->SetTitle("dimuon_invariant_mass");
   plot->SetTitleSize(0.03,"X");
