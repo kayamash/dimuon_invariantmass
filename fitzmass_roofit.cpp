@@ -48,6 +48,9 @@ void fitzmass_roofit(){
   plot->SetTitleOffset(1.7,"Y");
   plot->Draw();
 
+  massz.Print();
+  widthz.Print();
+
   TFile *file = new TFile("fresult.root","RECREATE");
   file->cd();
   c1->Write();
