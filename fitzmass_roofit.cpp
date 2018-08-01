@@ -49,7 +49,15 @@ void fitzmass_roofit(){
  
   RooAbsPdf * model_sig_y2s = w.pdf("model_sigy2s");
  
-  w.factory("SUM::model(nbkg*model_bkg, nsigz*model_sigz, nsigjp*model_sigjp,nsigy1s*model_sigy1s,nsigy2s*model_sigy2s)");
+  // signal model of some
+  w.factory("nsigsome[5000, 0., 100000.0]");// the number of signal
+  w.factory("masssome[35, 30, 40]");// mean?
+  w.factory("widthsome[1, 0.5,10]");//sigma?
+  w.factory("Gaussian::model_sigsome(x, masssome, widthsome)");
+ 
+  RooAbsPdf * model_sig_some = w.pdf("model_sigsome");
+
+  w.factory("SUM::model(nbkg*model_bkg, nsigz*model_sigz, nsigjp*model_sigjp,nsigy1s*model_sigy1s,nsigy2s*model_sigy2s, nsigsome*model_sigsome)");
   RooAbsPdf * model = w.pdf("model");//the pdf model of signal and background
  
   // create RooDataSet
