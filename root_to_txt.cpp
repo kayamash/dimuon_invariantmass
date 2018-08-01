@@ -1,6 +1,6 @@
  void root_to_txt(){
-  TFile file("hist.root");
-  TTree *tree = (TTree*)file.Get("tree");
+  TFile file("MyAnalysisAlgHistograms.root");
+  TTree *tree = (TTree*)file.Get("MyTree");
   Double_t mass = 0.;
   tree->SetBranchAddress("muon_invariant_mass",&mass);
   Int_t eventnumber=tree->GetEntries();
