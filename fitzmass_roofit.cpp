@@ -20,14 +20,14 @@ void fitzmass_roofit(){
 
  
   // signal model  
-  w.factory("nsig[5000, 0., 10000.0]");// the number of signal
-  w.factory("mass[90, 60, 120]");// mean?
-  w.factory("width[1, 0.5,10]");//sigma?
-  w.factory("Gaussian::model_sig(x, mass, width)");
+  w.factory("nsigz[5000, 0., 10000.0]");// the number of signal
+  w.factory("massz[90, 60, 120]");// mean?
+  w.factory("widthz[1, 0.5,10]");//sigma?
+  w.factory("Gaussian::model_sigz(x, massz, widthz)");
  
-  RooAbsPdf * model_sig = w.pdf("model_sig");
+  RooAbsPdf * model_sig = w.pdf("model_sigz");
  
-  w.factory("SUM::model(nbkg*model_bkg, nsig*model_sig)");
+  w.factory("SUM::model(nbkg*model_bkg, nsigz*model_sigz)");
   RooAbsPdf * model = w.pdf("model");//the pdf model of signal and background
  
   // create RooDataSet
@@ -39,7 +39,7 @@ void fitzmass_roofit(){
   data.plotOn(plot);
   model->plotOn(plot);
   model->plotOn(plot, Components("model_bkg"),LineStyle(kDashed));
-  model->plotOn(plot, Components("model_sig"),LineColor(kRed));
+  model->plotOn(plot, Components("model_sigz"),LineColor(kRed));
   plot->SetXTitle("dimuon_invariant_mass[GeV]");
   plot->SetTitle("dimuon_invariant_mass");
   plot->SetTitleSize(0.03,"X");
