@@ -51,6 +51,7 @@ void fitzmass_roofit(){
   TFile *file = new TFile("fresult.root","RECREATE");
   file->cd();
   c1->Write();
+  w.writeToFile("GaussModel.root");
   delete c1;
 
 }
