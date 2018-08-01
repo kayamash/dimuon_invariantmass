@@ -1,5 +1,5 @@
  void root_to_txt(){
-  TFile file("hist.root");
+  TFile file("MyAnalysisAlgHistograms.root");
   TTree *tree = (TTree*)file.Get("tree");
   Double_t mass = 0.;
   tree->SetBranchAddress("muon_invariant_mass",&mass);
