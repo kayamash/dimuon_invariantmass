@@ -39,6 +39,8 @@ void fitzmass_roofit(){
   model->plotOn(plot, Components("model_bkg"),LineStyle(kDashed));
   model->plotOn(plot, Components("model_sig"),LineColor(kRed));
   plot->SetXTitle("dimuon_invariant_mass[GeV]");
+  plot->SetTitleSize(0.02,"X");
+  plot->SetTitleSize(0.02,"Y");
   plot->Draw();
   
   TFile *file = new TFile("fresult.root","RECREATE");
